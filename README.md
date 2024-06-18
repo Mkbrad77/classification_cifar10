@@ -57,6 +57,31 @@ Classification of CIFAR-10 images using various algorithms
     └── visualization  <- Scripts to create exploratory and results oriented visualizations
         └── visualize.py
 ```
+## Configuration initiale du projet
 
+Après avoir cloné ce dépôt, suivez les étapes ci-dessous pour configurer Git LFS et télécharger les fichiers volumineux nécessaires.
+
+### 1. Cloner le dépôt
+
+1. **Cloner le dépôt** :
+    ```bash
+    git clone https://github.com/votre-nom-utilisateur/classification_cifar10.git
+    cd classification_cifar10
+    ```
+
+2. **Initialiser Git LFS** :
+    ```bash
+    git lfs install
+    ```
+
+3. **Télécharger les fichiers volumineux** :
+    ```bash
+    git lfs pull
+    ```
+
+4. **Installer les dépendances** :
+    ```bash
+    pip install -r requirements.txt
+    ```
 --------
 
