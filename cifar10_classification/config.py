@@ -26,4 +26,75 @@ LABEL_NAMES = [
 ]
 
 # Model types disponibles
-MODEL_TYPES = ['logistic', 'random_forest', 'sgd', 'svm', 'knn', 'naive_bayes', 'perceptron', 'mlp', 'linear_svm']
+MODEL_TYPES = ['logistic', 'random_forest', 'sgd', 'svm', 'knn', 'naive_bayes', 'linear_svm']
+
+# Hyperparamètres spécifiques aux modèles
+HYPERPARAMETERS = {
+    'logistic': {
+        'C': 0.1,
+        'dual': False,
+        'fit_intercept': True,
+        'intercept_scaling': 1,
+        'max_iter': 2000,
+        #'multi_class': 'auto',
+        'penalty': 'l2',
+        'random_state': 101,
+        'solver': 'lbfgs',
+        'tol': 0.0001,
+        'verbose': 0,
+        'warm_start': False
+    },
+    'random_forest': {
+        'bootstrap': True,
+        'ccp_alpha': 0.0,
+        'criterion': 'gini',
+        'max_depth': 20,
+        'max_features': 'sqrt',
+        'min_impurity_decrease': 0.0,
+        'min_samples_leaf': 1,
+        'min_samples_split': 2,
+        'min_weight_fraction_leaf': 0.0,
+        'n_estimators': 200,
+        'oob_score': False,
+        'random_state': 101,
+        'verbose': 0,
+        'warm_start': False
+    },
+    'sgd': {
+        'alpha': 0.0001,
+        'average': False,
+        'early_stopping': False,
+        'epsilon': 0.1,
+        'eta0': 0.0,
+        'fit_intercept': True,
+        'l1_ratio': 0.15,
+        'learning_rate': 'optimal',
+        'loss': 'log_loss',
+        'max_iter': 1000,
+        'n_iter_no_change': 5,
+        'penalty': 'l2',
+        'power_t': 0.5,
+        'random_state': 101,
+        'shuffle': True,
+        'tol': 0.0001,
+        'validation_fraction': 0.1,
+        'verbose': 0,
+        'warm_start': False
+    },
+    'svm': {
+        'C': 10,
+        'break_ties': False,
+        'cache_size': 200,
+        'coef0': 0.0,
+        'decision_function_shape': 'ovr',
+        'degree': 3,
+        'gamma': 'scale',
+        'kernel': 'rbf',
+        'max_iter': -1,
+        'probability': False,
+        'random_state': 101,
+        'shrinking': True,
+        'tol': 0.001,
+        'verbose': False
+    }
+}

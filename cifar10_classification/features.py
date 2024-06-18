@@ -5,6 +5,7 @@ from skimage import color
 import cv2
 import cv2
 import numpy as np
+import joblib
 import os
 from sklearn.cluster import KMeans, MiniBatchKMeans
 from cifar10_classification.config  import DATA_DIR
@@ -84,6 +85,10 @@ def save_features(features, method, data_split):
     os.makedirs(output_dir, exist_ok=True)
     output_path = os.path.join(output_dir, f'X_{data_split}_{method}.npy')
     np.save(output_path, features)
+
+def load_model(path):
+    model = joblib.load(path)
+    return model
 
 if __name__ == "__main__":
     from dataset import prepare_data

@@ -7,43 +7,79 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 from sklearn.pipeline import make_pipeline
+from sklearn.linear_model import SGDClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import LinearSVC
+from sklearn.naive_bayes import GaussianNB
 from cifar10_classification.dataset import prepare_data
+from cifar10_classification.modeling.predict import evaluate_model, predict_model
 from cifar10_classification.features import extract_hog_features, flatten_images
-from cifar10_classification.config import BATCH_SIZE, EPOCHS, LEARNING_RATE, N_ESTIMATOR_RANDOM_FOREST, KERNEL, LOSS, MODEL_TYPES
+from cifar10_classification.config import BATCH_SIZE, EPOCHS, LEARNING_RATE, N_ESTIMATOR_RANDOM_FOREST, KERNEL, LOSS, MODEL_TYPES, HYPERPARAMETERS
 from sklearn.linear_model import SGDClassifier
 def train_logistic_regression(X_train, y_train, X_val, y_val):
+    params = HYPERPARAMETERS['logistic']
     scaler = StandardScaler()
-    model = LogisticRegression(max_iter=EPOCHS)
+    model = LogisticRegression(**params)
     pipeline = make_pipeline(scaler, model)
     pipeline.fit(X_train, y_train)
-    val_predictions = pipeline.predict(X_val)
+    val_predictions = predict_model(pipeline, X_val)
     #accuracy = accuracy_score(y_val, val_predictions)
     return model, val_predictions
 
 def train_random_forest(X_train, y_train, X_val, y_val):
+    params = HYPERPARAMETERS['random_forest']
     scaler = StandardScaler()
-    model = RandomForestClassifier(n_estimators=N_ESTIMATOR_RANDOM_FOREST)
+    model = RandomForestClassifier(**params)
     pipeline = make_pipeline(scaler, model)
     pipeline.fit(X_train, y_train)
-    val_predictions = pipeline.predict(X_val)
+    val_predictions = predict_model(pipeline, X_val)
     #accuracy = accuracy_score(y_val, val_predictions)
     return model, val_predictions
 
 def train_svm(X_train, y_train, X_val, y_val):
+    params = HYPERPARAMETERS['svm']
     scaler = StandardScaler()
-    model = SVC(kernel=KERNEL, C=1)
+    model = SVC(**params)
     pipeline = make_pipeline(scaler, model)
     pipeline.fit(X_train, y_train)
-    val_predictions = pipeline.predict(X_val)
+    val_predictions = predict_model(pipeline, X_val)
     #accuracy = accuracy_score(y_val, val_predictions)
     return model, val_predictions
 
 def train_sgd_classifier(X_train, y_train, X_val, y_val, loss=LOSS): #The 'loss' parameter of SGDClassifier must be a str among {'modified_huber', 'epsilon_insensitive', 'hinge', 'huber', 'squared_hinge', 'log_loss', 'squared_epsilon_insensitive', 'perceptron', 'squared_error'}
     scaler = StandardScaler()
-    model = SGDClassifier(loss=loss, max_iter=1000, tol=1e-3)
+    params = HYPERPARAMETERS['sgd']
+    model = SGDClassifier(**params)
     pipeline = make_pipeline(scaler, model)
     pipeline.fit(X_train, y_train)
-    val_predictions = model.predict(X_val)
+    val_predictions = predict_model(pipeline, X_val)
+    #accuracy = accuracy_score(y_val, val_predictions)
+    return model, val_predictions
+
+def train_knn(X_train, y_train, X_val, y_val):
+    scaler = StandardScaler()
+    model = KNeighborsClassifier(n_neighbors=N_ESTIMATOR_RANDOM_FOREST)
+    pipeline = make_pipeline(scaler, model)
+    pipeline.fit(X_train, y_train)
+    val_predictions = predict_model(pipeline, X_val)
+    #accuracy = accuracy_score(y_val, val_predictions)
+    return model, val_predictions
+
+def train_linear_svm(X_train, y_train, X_val, y_val):
+    scaler = StandardScaler()
+    model = LinearSVC(max_iter=2000)
+    pipeline = make_pipeline(scaler, model)
+    pipeline.fit(X_train, y_train)
+    val_predictions = predict_model(pipeline, X_val)
+    #accuracy = accuracy_score(y_val, val_predictions)
+    return model, val_predictions
+
+def train_naive_bayes(X_train, y_train, X_val, y_val):
+    scaler = StandardScaler()
+    model = GaussianNB()
+    pipeline = make_pipeline(scaler, model)
+    pipeline.fit(X_train, y_train)
+    val_predictions = predict_model(pipeline, X_val)
     #accuracy = accuracy_score(y_val, val_predictions)
     return model, val_predictions
 
@@ -56,6 +92,12 @@ def train_classifier(X_train, y_train, X_val, y_val, model_type=MODEL_TYPES[0]):
         return train_svm(X_train, y_train, X_val, y_val)
     elif model_type == 'sgd':
         return train_sgd_classifier(X_train, y_train, X_val, y_val)
+    elif model_type == 'knn':
+        return train_knn(X_train, y_train, X_val, y_val)
+    elif model_type == 'linear_svm':
+        return train_linear_svm(X_train, y_train, X_val, y_val)
+    elif model_type == 'naive_bayes':
+        return train_naive_bayes(X_train, y_train, X_val, y_val)
     else:
         raise ValueError(f"Unknown model type: {model_type}")
     

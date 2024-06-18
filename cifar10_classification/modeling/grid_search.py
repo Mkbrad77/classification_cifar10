@@ -35,29 +35,6 @@ def save_model(model, feature_method, classifier):
     joblib.dump(model, model_filename)
 
 
-def train_perceptron(X_train, y_train, X_val, y_val, use_pca=True): # Paramétrique linéaire
-    print("Starting train_perceptron...")
-    start_time = time.time()
-    scaler = StandardScaler()
-    model = Perceptron(max_iter=1000, tol=1e-3)
-    if use_pca:
-        n_components = min(100, X_train.shape[0], X_train.shape[1])
-        pca = PCA(n_components=n_components)
-        pipeline = make_pipeline(scaler, pca, model)
-    else:
-        pipeline = make_pipeline(scaler, model)
-    param_grid = {
-        'perceptron__alpha': [0.0001, 0.001, 0.01],
-        'perceptron__penalty': ['l2', 'l1', 'elasticnet']
-    }
-    grid_search = GridSearchCV(pipeline, param_grid, cv=3, scoring='accuracy', n_jobs=2)
-    grid_search.fit(X_train, y_train)
-    val_predictions = grid_search.predict(X_val)
-    end_time = time.time()
-    exec_time = end_time - start_time
-    print("Completed train_perceptron in", exec_time, "seconds.")
-    return grid_search.best_estimator_, val_predictions, exec_time
-
 
 from sklearn.svm import LinearSVC
 
@@ -232,8 +209,6 @@ def train_classifier(X_train, y_train, X_val, y_val, model_type='logistic', use_
         return train_sgd_classifier(X_train, y_train, X_val, y_val, use_pca=use_pca)
     elif model_type == 'knn':
        return train_knn(X_train, y_train, X_val, y_val, use_pca=use_pca)
-    elif model_type == 'perceptron':
-        return train_perceptron(X_train, y_train, X_val, y_val, use_pca=use_pca)
     elif model_type == 'linear_svm':
         return train_linear_svm(X_train, y_train, X_val, y_val, use_pca=use_pca)
     elif model_type == 'naive_bayes':
@@ -248,7 +223,7 @@ if __name__ == "__main__":
         print("Data prepared.")
 
         feature_methods = ['hog', 'flatten'] # 'sift'
-        classifiers = ['naive_bayes', 'sgd', 'logistic', 'perceptron', 'linear_svm', 'random_forest', 'svm', 'knn'] 
+        classifiers = ['naive_bayes', 'sgd', 'logistic', 'linear_svm', 'random_forest', 'svm', 'knn'] 
         results = []
         
         for feature_method in feature_methods:

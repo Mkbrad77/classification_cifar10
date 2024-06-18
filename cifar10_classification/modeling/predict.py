@@ -2,11 +2,11 @@
 import numpy as np
 from cifar10_classification.dataset import prepare_data
 from cifar10_classification.features import extract_hog_features, flatten_images
-from cifar10_classification.modeling.train import train_logistic_regression, train_random_forest, train_svm
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report
 
-
+from sklearn.metrics import roc_auc_score, confusion_matrix
 # predict.py
+import os
 import numpy as np
 from sklearn.metrics import accuracy_score, classification_report
 import joblib
@@ -23,8 +23,10 @@ def predict_model(model, X_test):
 def evaluate_model(model, X_test, y_test):
     predictions = predict_model(model, X_test)
     accuracy = accuracy_score(y_test, predictions)
-    report = classification_report(y_test, predictions)
-    return accuracy, report
+    cm = confusion_matrix(y_test, predictions)
+    report = classification_report(y_test, predictions, zero_division=1)
+    #roc_auc = roc_auc_score(y_test, predictions)
+    return accuracy, report, cm
 
 def main():
     X_train, y_train, X_val, y_val, X_test, y_test = prepare_data()

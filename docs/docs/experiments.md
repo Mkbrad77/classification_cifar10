@@ -13,16 +13,3 @@ Les images sont normalisées pour avoir des valeurs de pixels entre 0 et 1. Les 
 - Validation: 10 000 images (20% du total d'entraînement)
 - Test: 10 000 images
 
-### Taille des mini-batchs
-La taille des mini-batchs est fixée à 64 images.
-
-### Learning rate
-Le learning rate utilisé pour la descente de gradient stochastique est de 0.01.
-
-### Kernels utilisés
-- Pour SVM: Kernel linéaire
-- Pour HOG: Cellules de 8x8 pixels
-
-### Époques
-Le nombre d'époques pour l'entraînement des modèles est de 50.
-
