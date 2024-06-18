@@ -1,0 +1,16 @@
+opencv-contrib-python
+matplotlib
+mkdocs
+opencv-python
+numpy
+pandas
+python-dotenv
+scikit-image
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
+scipy
+joblib
+openpyxl
