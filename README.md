@@ -49,10 +49,12 @@ Classification of CIFAR-10 images using various algorithms
 │                         the creator's initials, and a short `-` delimited description, e.g.
 │                         `1.0-jqp-initial-data-exploration`.
 │   ├── best_model_show.ipynb    <- Tutorial for importing the best-trained models
+│   ├── best_model_show.ipynb <-- ici je présente les performances de mes meilleurs projets
 │   ├── experimentation.ipynb
 │   ├── initial_data_exploration.ipynb
 │   ├── model_results2.xlsx
 │   ├── model_results.xlsx
+|   ├── test_best_model.ipynb <-- Ici possibilité de tester n'importe quelle image hors base de donnée CIFAR10 (ici comme exemple je prend une image de voiture téléchargé sur google)
 │   └── Tuto_librairie.ipynb     <- Tutorial on using the library
 ├── pyproject.toml     <- Project configuration file with package metadata for ML_&_reconnaissance_de_forme
 │                         and configuration for tools like black

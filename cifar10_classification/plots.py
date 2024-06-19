@@ -25,7 +25,7 @@ def plot_sample_images(images, labels, label_names, num=10):
     plt.savefig(os.path.join(FIGURES_DIR, 'sample_images.png'))
     plt.show()
 
-def plot_confusion_matrix(cm, classes, normalize=False, title='Confusion matrix', cmap=plt.cm.Blues):
+def plot_confusion_matrix(cm, classes, normalize=False, title='Confusion_matrix', cmap=plt.cm.Blues):
     import itertools
     if normalize:
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
@@ -51,7 +51,7 @@ def plot_confusion_matrix(cm, classes, normalize=False, title='Confusion matrix'
     plt.tight_layout()
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
-    plt.savefig(os.path.join(FIGURES_DIR, 'confusion_matrix.png'))
+    plt.savefig(os.path.join(FIGURES_DIR, f'{title}.png'))
     plt.show()
 
 # Visualiser quelques images pour comprendre la structure des données
@@ -85,7 +85,7 @@ def display_hog_images(X_original, X_hog, original, num_images=10):
     plt.show()
 
 # Visualiser les performances du modèle
-def plot_roc_curve(y_true, y_score, n_classes):
+def plot_roc_curve(y_true, y_score, n_classes, title='ROC_Curve'):
     fpr = dict()
     tpr = dict()
     roc_auc = dict()
@@ -101,7 +101,7 @@ def plot_roc_curve(y_true, y_score, n_classes):
     plt.ylabel('True Positive Rate')
     plt.title('Receiver Operating Characteristic')
     plt.legend(loc="lower right")
-    plt.savefig(os.path.join(FIGURES_DIR, 'roc_curve.png'))
+    plt.savefig(os.path.join(FIGURES_DIR, f'{title}.png'))
     plt.show()
 
 if __name__ == "__main__":
