@@ -109,6 +109,51 @@ Pour désactiver l'environnement virtuel après avoir terminé votre travail, vo
 
 ```bash
 deactivate
+```
 
+### Utilisation du Makefile
+Ce projet utilise un Makefile pour automatiser les tâches courantes. Voici comment utiliser les différentes commandes du Makefile :
+
+1. **Configurer l'environnement** :
+
+```bash
+make setup_env
+```
+
+2. **Installer les dépendances** :
+
+```bash
+make install_deps
+```
+
+3. **Préparer les données** :
+
+```bash
+make prepare_data
+```
+
+4. **Extraire les caractéristiques** :
+
+```bash
+make extract_features
+```
+
+5. **Entraîner le modèle** :
+
+```bash
+make train_model
+```
+
+6. **Évaluer le modèle** :
+
+```bash
+make evaluate_model
+```
+
+7. **Nettoyer les fichiers générés** :
+
+```bash
+make clean
+```
 --------
 

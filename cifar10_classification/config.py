@@ -2,11 +2,24 @@
 # config.py
 import os
 
+import sys
+
+from dotenv import load_dotenv
+
+# Charger les variables d'environnement depuis le fichier .env
+load_dotenv()
+
+# Ajouter le répertoire parent au PYTHONPATH
+sys.path.append(os.getenv('PYTHONPATH'))
 # Chemins vers les données
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, 'cifar-10-batches-py')
 MODEL_DIR = os.path.join(BASE_DIR, 'models')
-
+PROCESSED_DATA_DIR = os.path.join(BASE_DIR, 'data', 'processed')
+RAW_DATA_DIR = os.path.join(BASE_DIR, 'data', 'raw')
+INTERIM_DATA_DIR = os.path.join(BASE_DIR, 'data', 'interim')
+EXTERNAL_DATA_DIR = os.path.join(BASE_DIR, 'data', 'external')
+FIGURES_DIR = os.path.join(BASE_DIR, 'reports', 'figures')
 # Hyperparamètres
 BATCH_SIZE = 64
 LEARNING_RATE = 0.01

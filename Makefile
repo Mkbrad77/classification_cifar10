@@ -1,82 +1,44 @@
-#################################################################################
-# GLOBALS                                                                       #
-#################################################################################
+# Makefile for CIFAR-10 Classification Project
 
-PROJECT_NAME = classifiaction_cifar
-PYTHON_VERSION = 3.11
-PYTHON_INTERPRETER = python
+# Variables
+ENV_NAME = venv
+PYTHON = $(ENV_NAME)/bin/python
+PIP = $(ENV_NAME)/bin/pip
+PROJECT_DIR = cifar10_classification
+DATA_DIR = data
+PROCESSED_DATA_DIR = $(DATA_DIR)/processed
 
-#################################################################################
-# COMMANDS                                                                      #
-#################################################################################
+# Phony targets
+.PHONY: all setup_env install_deps prepare_data extract_features train_model evaluate_model clean
 
+# Default target
+all: setup_env install_deps prepare_data extract_features train_model evaluate_model
 
-## Install Python Dependencies
-.PHONY: requirements
-requirements:
-	$(PYTHON_INTERPRETER) -m pip install -U pip
-	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
-	
+# Set up virtual environment
+setup_env:
+	python -m venv $(ENV_NAME)
 
+# Install dependencies
+install_deps: setup_env
+	$(PIP) install -r requirements.txt
 
+# Prepare data
+prepare_data:
+	$(PYTHON) $(PROJECT_DIR)/dataset.py
 
-## Delete all compiled Python files
-.PHONY: clean
+# Extract features
+extract_features: prepare_data
+	$(PYTHON) $(PROJECT_DIR)/features.py
+
+# Train model
+train_model: extract_features
+	$(PYTHON) $(PROJECT_DIR)/modeling/train.py
+
+# Evaluate model
+evaluate_model: train_model
+	$(PYTHON) $(PROJECT_DIR)/modeling/predict.py
+
+# Clean generated files
 clean:
-	find . -type f -name "*.py[co]" -delete
-	find . -type d -name "__pycache__" -delete
+	rm -rf $(PROCESSED_DATA_DIR)/*.npy $(ENV_NAME)
 
-## Lint using flake8 and black (use `make format` to do formatting)
-.PHONY: lint
-lint:
-	flake8 ML_&_reconnaissance_de_forme
-	isort --check --diff --profile black ML_&_reconnaissance_de_forme
-	black --check --config pyproject.toml ML_&_reconnaissance_de_forme
-
-## Format source code with black
-.PHONY: format
-format:
-	black --config pyproject.toml ML_&_reconnaissance_de_forme
-
-
-
-
-## Set up python interpreter environment
-.PHONY: create_environment
-create_environment:
-	
-	conda create --name $(PROJECT_NAME) python=$(PYTHON_VERSION) -y
-	
-	@echo ">>> conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
-	
-
-
-
-#################################################################################
-# PROJECT RULES                                                                 #
-#################################################################################
-
-
-## Make Dataset
-.PHONY: data
-data: requirements
-	$(PYTHON_INTERPRETER) ML_&_reconnaissance_de_forme/data/make_dataset.py
-
-
-#################################################################################
-# Self Documenting Commands                                                     #
-#################################################################################
-
-.DEFAULT_GOAL := help
-
-define PRINT_HELP_PYSCRIPT
-import re, sys; \
-lines = '\n'.join([line for line in sys.stdin]); \
-matches = re.findall(r'\n## (.*)\n[\s\S]+?\n([a-zA-Z_-]+):', lines); \
-print('Available rules:\n'); \
-print('\n'.join(['{:25}{}'.format(*reversed(match)) for match in matches]))
-endef
-export PRINT_HELP_PYSCRIPT
-
-help:
-	@python -c "${PRINT_HELP_PYSCRIPT}" < $(MAKEFILE_LIST)

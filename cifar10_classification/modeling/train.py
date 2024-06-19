@@ -1,4 +1,14 @@
 # train.py
+import os
+import sys
+
+from dotenv import load_dotenv
+
+# Charger les variables d'environnement depuis le fichier .env
+load_dotenv()
+
+# Ajouter le répertoire parent au PYTHONPATH
+sys.path.append(os.getenv('PYTHONPATH'))
 import numpy as np
 from sklearn.metrics import classification_report
 from sklearn.linear_model import LogisticRegression
@@ -13,7 +23,7 @@ from sklearn.svm import LinearSVC
 from sklearn.naive_bayes import GaussianNB
 from cifar10_classification.dataset import prepare_data
 from cifar10_classification.modeling.predict import evaluate_model, predict_model
-from cifar10_classification.features import extract_hog_features, flatten_images
+from cifar10_classification.features import extract_hog_features, flatten_images, save_processed_data
 from cifar10_classification.config import BATCH_SIZE, EPOCHS, LEARNING_RATE, N_ESTIMATOR_RANDOM_FOREST, KERNEL, LOSS, MODEL_TYPES, HYPERPARAMETERS
 from sklearn.linear_model import SGDClassifier
 def train_logistic_regression(X_train, y_train, X_val, y_val):
@@ -111,8 +121,8 @@ def main():
     # Example with HOG features
     X_train_hog = extract_hog_features(X_train)
     X_val_hog = extract_hog_features(X_val)
-    np.save('/home/mkbrad7/afs_epita/ING2/ML_reconnaissance_de_forme/Projet/classifiaction_cifar/data/processed/X_train_hog.npy', X_train_hog)
-    np.save('/home/mkbrad7/afs_epita/ING2/ML_reconnaissance_de_forme/Projet/classifiaction_cifar/data/processed/X_val_hog.npy', X_val_hog)
+    X_test_hog = extract_hog_features(X_test)
+    save_processed_data(X_train_hog, X_val_hog, X_test_hog, 'hog')
     model, val_predictions = train_classifier(X_train_hog, y_train, X_val_hog, y_val, model_type=MODEL_TYPES[0])
     print(classification_report(y_val, val_predictions))
 

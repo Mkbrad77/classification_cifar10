@@ -1,7 +1,19 @@
 # plots.py
+import os
+import sys
+
+from dotenv import load_dotenv
+
+# Charger les variables d'environnement depuis le fichier .env
+load_dotenv()
+
+# Ajouter le répertoire parent au PYTHONPATH
+sys.path.append(os.getenv('PYTHONPATH'))
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
+import os
+from cifar10_classification.config import FIGURES_DIR
 from sklearn.metrics import confusion_matrix, roc_curve, auc
 def plot_sample_images(images, labels, label_names, num=10):
     fig, axes = plt.subplots(1, num, figsize=(15, 15))
@@ -10,7 +22,7 @@ def plot_sample_images(images, labels, label_names, num=10):
         axes[i].imshow(img)
         axes[i].set_title(label_names[labels[i]])
         axes[i].axis('off')
-    plt.savefig('/home/mkbrad7/afs_epita/ING2/ML_reconnaissance_de_forme/Projet/classifiaction_cifar/data/raw/sample_images.png')
+    plt.savefig(os.path.join(FIGURES_DIR, 'sample_images.png'))
     plt.show()
 
 def plot_confusion_matrix(cm, classes, normalize=False, title='Confusion matrix', cmap=plt.cm.Blues):
@@ -39,7 +51,7 @@ def plot_confusion_matrix(cm, classes, normalize=False, title='Confusion matrix'
     plt.tight_layout()
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
-    plt.savefig('/home/mkbrad7/afs_epita/ING2/ML_reconnaissance_de_forme/Projet/classifiaction_cifar/data/raw/confusion_matrix.png')
+    plt.savefig(os.path.join(FIGURES_DIR, 'confusion_matrix.png'))
     plt.show()
 
 # Visualiser quelques images pour comprendre la structure des données
@@ -51,6 +63,25 @@ def show_images(images, labels, label_names, num_images=10):
         plt.imshow(img)
         plt.title(label_names[labels[i]])
         plt.axis('off')
+    plt.savefig(os.path.join(FIGURES_DIR, 'sample_images.png'))
+    plt.show()
+
+# Afficher les images originales et les images HOG
+def display_hog_images(X_original, X_hog, original, num_images=10):
+    #num_images = len(X_original)
+    fig, axes = plt.subplots(num_images, 2, figsize=(10, num_images * 5))
+    
+    for i in range(num_images):
+        axes[i, 0].imshow(X_original[i].reshape(32, 32, 3).astype(np.uint8))
+        axes[i, 0].set_title('Original Image')
+        axes[i, 0].axis('off')
+        
+        axes[i, 1].imshow(X_hog[i], cmap='gray')
+        axes[i, 1].set_title('HOG Image')
+        axes[i, 1].axis('off')
+    
+    plt.tight_layout()
+    plt.savefig(os.path.join(FIGURES_DIR, f'{original}_hog_images.png'))
     plt.show()
 
 # Visualiser les performances du modèle
@@ -70,7 +101,7 @@ def plot_roc_curve(y_true, y_score, n_classes):
     plt.ylabel('True Positive Rate')
     plt.title('Receiver Operating Characteristic')
     plt.legend(loc="lower right")
-    plt.savefig('/home/mkbrad7/afs_epita/ING2/ML_reconnaissance_de_forme/Projet/classifiaction_cifar/data/raw/roc_curve.png')
+    plt.savefig(os.path.join(FIGURES_DIR, 'roc_curve.png'))
     plt.show()
 
 if __name__ == "__main__":
