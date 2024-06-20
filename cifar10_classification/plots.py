@@ -66,6 +66,21 @@ def show_images(images, labels, label_names, num_images=10):
     plt.savefig(os.path.join(FIGURES_DIR, 'sample_images.png'))
     plt.show()
 
+def display_flatten_images(images, flattened_images, dataset_name='dataset', num_images=2):
+    for i in range(num_images):  # Display first 2 images
+        plt.figure(figsize=(6, 6))
+        img = images[i].reshape(32, 32, 3)
+        flattened_img = flattened_images[i].reshape(32, 32, 3)
+        plt.subplot(1, 2, 1)
+        plt.title(f'Original Image - {dataset_name}')
+        plt.imshow(img)
+        plt.subplot(1, 2, 2)
+        plt.title(f'Flatten Image - {dataset_name}')
+        plt.imshow(flattened_img)
+        plt.savefig(os.path.join(FIGURES_DIR, f'{dataset_name}_flattened_images.png'))
+        plt.show()
+
+
 # Afficher les images originales et les images HOG
 def display_hog_images(X_original, X_hog, original, num_images=10):
     #num_images = len(X_original)
