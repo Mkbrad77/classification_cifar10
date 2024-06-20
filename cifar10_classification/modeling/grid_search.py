@@ -7,9 +7,10 @@ from dotenv import load_dotenv
 
 # Charger les variables d'environnement depuis le fichier .env
 load_dotenv()
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Ajouter le répertoire parent au PYTHONPATH
-sys.path.append(os.getenv('PYTHONPATH'))
+#sys.path.append(os.getenv('PYTHONPATH'))
 import numpy as np
 from sklearn.metrics import classification_report, accuracy_score
 from sklearn.linear_model import LogisticRegression, SGDClassifier
@@ -57,7 +58,7 @@ def train_linear_svm(X_train, y_train, X_val, y_val, use_pca=True): # Paramétri
     val_predictions = grid_search.predict(X_val)
     end_time = time.time()
     exec_time = end_time - start_time
-    print("Completed train_linear_svm in", exec_time, "seconds.")
+    print("Completed train_linear_svm in", round(exec_time/60, 2), "minutes.")
     return grid_search.best_estimator_, val_predictions, exec_time
 
 def train_logistic_regression(X_train, y_train, X_val, y_val, use_pca=True): # Paramétrique linéaire
@@ -80,7 +81,7 @@ def train_logistic_regression(X_train, y_train, X_val, y_val, use_pca=True): # P
     val_predictions = grid_search.predict(X_val)
     end_time = time.time()
     exec_time = end_time - start_time
-    print("Completed train_logistic_regression in", exec_time, "seconds.")
+    print("Completed train_logistic_regression in", round(exec_time/60, 2), "minutes.")
     return grid_search.best_estimator_, val_predictions, exec_time
 
 def train_random_forest(X_train, y_train, X_val, y_val, use_pca=True): # Non paramétrique non linéaire
@@ -104,7 +105,7 @@ def train_random_forest(X_train, y_train, X_val, y_val, use_pca=True): # Non par
     val_predictions = grid_search.predict(X_val)
     end_time = time.time()
     exec_time = end_time - start_time
-    print("Completed train_random_forest in", exec_time, "seconds.")
+    print("Completed train_random_forest in", round(exec_time/60, 2), "minutes.")
     return grid_search.best_estimator_, val_predictions, exec_time
 
 def train_svm(X_train, y_train, X_val, y_val, use_pca=True): # Paramétrique non linéaire
@@ -128,7 +129,7 @@ def train_svm(X_train, y_train, X_val, y_val, use_pca=True): # Paramétrique non
     val_predictions = grid_search.predict(X_val)
     end_time = time.time()
     exec_time = end_time - start_time
-    print("Completed train_svm in", exec_time, "seconds.")
+    print("Completed train_svm in", round(exec_time/60, 2), "minutes.")
     return grid_search.best_estimator_, val_predictions, exec_time
 
 def train_knn(X_train, y_train, X_val, y_val, use_pca=True): # Non paramétrique non linéaire
@@ -152,7 +153,7 @@ def train_knn(X_train, y_train, X_val, y_val, use_pca=True): # Non paramétrique
     val_predictions = grid_search.predict(X_val)
     end_time = time.time()
     exec_time = end_time - start_time
-    print("Completed train_knn in", exec_time, "seconds.")
+    print("Completed train_knn in", round(exec_time/60, 2), "minutes.")
     return grid_search.best_estimator_, val_predictions, exec_time
 
 def train_sgd_classifier(X_train, y_train, X_val, y_val, use_pca=True): # Paramétrique linéaire (Stochastic Gradient Descent)
@@ -175,7 +176,8 @@ def train_sgd_classifier(X_train, y_train, X_val, y_val, use_pca=True): # Param�
     val_predictions = grid_search.predict(X_val)
     end_time = time.time()
     exec_time = end_time - start_time
-    print("Completed train_sgd_classifier in", exec_time, "seconds.")
+    # deux chiffres après la virgule
+    print("Completed train_sgd_classifier in", round(exec_time/60, 2), "minutes.")
     return grid_search.best_estimator_, val_predictions, exec_time
 
 from sklearn.naive_bayes import GaussianNB
@@ -194,7 +196,7 @@ def train_naive_bayes(X_train, y_train, X_val, y_val, use_pca=True): # Paramétr
     val_predictions = pipeline.predict(X_val)
     end_time = time.time()
     exec_time = end_time - start_time
-    print("Completed train_naive_bayes in", exec_time, "seconds.")
+    print("Completed train_naive_bayes in", round(exec_time/60, 2), "minutes.")
     return pipeline, val_predictions, exec_time
 
 def train_classifier(X_train, y_train, X_val, y_val, model_type='logistic', use_pca=True):
@@ -223,7 +225,7 @@ if __name__ == "__main__":
         print("Data prepared.")
 
         feature_methods = ['hog', 'flatten'] # 'sift'
-        classifiers = ['naive_bayes', 'sgd', 'logistic', 'linear_svm', 'random_forest', 'svm', 'knn'] 
+        classifiers = ['logistic', 'random_forest', 'svm'] # 'naive_bayes', 'sgd', 'logistic', 'linear_svm', 'random_forest', 'svm', 'knn'
         results = []
         
         for feature_method in feature_methods:

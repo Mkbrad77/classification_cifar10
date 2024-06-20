@@ -38,6 +38,8 @@ train_model: extract_features
 evaluate_model: train_model
 	$(PYTHON) $(PROJECT_DIR)/modeling/predict.py
 
+grid_search: 
+	$(PYTHON) $(PROJECT_DIR)/modeling/grid_search.py
 # Clean generated files
 clean:
 	rm -rf $(PROCESSED_DATA_DIR)/*.npy $(ENV_NAME)

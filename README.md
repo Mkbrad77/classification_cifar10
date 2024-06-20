@@ -91,33 +91,12 @@ Après avoir cloné ce dépôt, suivez les étapes ci-dessous pour configurer Gi
     ```
     Si ça marche pas Vous devrez placer manuellement les fichiers volumineux dans le répertoire approprié: dans le répertoire `models` pour les models '.plk'. 
 
-4. **Créer un environnement virtuel** :
-    La création d'un environnement virtuel permet d'isoler les dépendances spécifiques à ce projet des autres projets et des paquets installés globalement sur votre système. Cela évite les conflits de versions et assure que votre projet utilise exactement les versions de paquets spécifiées dans `requirements.txt`.
-
-    ```bash
-    python -m venv venv
-    source venv/bin/activate
-    ```
-
-5. **Installer les dépendances** :
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-### Utilisation de l'environnement virtuel
-
-Après avoir suivi ces étapes, chaque fois que vous travaillerez sur ce projet, vous devrez activer l'environnement virtuel avec `source venv/bin/activate` (ou `venv\Scripts\activate` sur Windows). Cela assure que toutes les commandes `python` et `pip` utiliseront cet environnement isolé.
-
-Pour désactiver l'environnement virtuel après avoir terminé votre travail, vous pouvez utiliser :
-
-```bash
-deactivate
-```
 
 ### Utilisation du Makefile
 Ce projet utilise un Makefile pour automatiser les tâches courantes. Voici comment utiliser les différentes commandes du Makefile :
 
 1. **Configurer l'environnement** :
+La création d'un environnement virtuel permet d'isoler les dépendances spécifiques à ce projet des autres projets et des paquets installés globalement sur votre système. Cela évite les conflits de versions et assure que votre projet utilise exactement les versions de paquets spécifiées dans `requirements.txt`.
 
 ```bash
 make setup_env
@@ -153,10 +132,19 @@ make train_model
 make evaluate_model
 ```
 
-7. **Nettoyer les fichiers générés** :
+7. **Effectuer un grid search**
+C'est très long a faire tourner le temps d'exécution est affiché a chaque fois.
+
+```bash
+make grid_search
+```
+
+8. **Nettoyer les fichiers générés** :
 
 ```bash
 make clean
 ```
+
+
 --------
 
