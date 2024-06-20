@@ -76,7 +76,7 @@ Après avoir cloné ce dépôt, suivez les étapes ci-dessous pour configurer Gi
 
 1. **Cloner le dépôt** :
     ```bash
-    git clone https://github.com/votre-nom-utilisateur/classification_cifar10.git
+    GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/your-username/classification_cifar10.git
     cd classification_cifar10
     ```
 
@@ -89,6 +89,7 @@ Après avoir cloné ce dépôt, suivez les étapes ci-dessous pour configurer Gi
     ```bash
     git lfs pull
     ```
+    Si ça marche pas Vous devrez placer manuellement les fichiers volumineux dans le répertoire approprié: dans le répertoire `models` pour les models '.plk'. 
 
 4. **Créer un environnement virtuel** :
     La création d'un environnement virtuel permet d'isoler les dépendances spécifiques à ce projet des autres projets et des paquets installés globalement sur votre système. Cela évite les conflits de versions et assure que votre projet utilise exactement les versions de paquets spécifiées dans `requirements.txt`.
