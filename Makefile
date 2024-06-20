@@ -1,5 +1,5 @@
 # Makefile for CIFAR-10 Classification Project
-
+export PYTHONPATH := $(shell pwd)
 # Variables
 ENV_NAME = venv
 PYTHON = $(ENV_NAME)/bin/python
