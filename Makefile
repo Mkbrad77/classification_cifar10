@@ -7,7 +7,7 @@ PIP = $(ENV_NAME)/bin/pip
 PROJECT_DIR = cifar10_classification
 DATA_DIR = data
 PROCESSED_DATA_DIR = $(DATA_DIR)/processed
-
+INTERIM_DATA_DIR = $(DATA_DIR)/interim
 # Phony targets
 .PHONY: all setup_env install_deps prepare_data extract_features train_model evaluate_model clean
 
@@ -42,5 +42,5 @@ grid_search:
 	$(PYTHON) $(PROJECT_DIR)/modeling/grid_search.py
 # Clean generated files
 clean:
-	rm -rf $(PROCESSED_DATA_DIR)/*.npy $(ENV_NAME)
+	rm -rf $(PROCESSED_DATA_DIR)/*.npy $(ENV_NAME) $(INTERIM_DATA_DIR)/*.npy
 
