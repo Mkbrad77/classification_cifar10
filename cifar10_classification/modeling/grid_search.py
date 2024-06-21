@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 # Charger les variables d'environnement depuis le fichier .env
 load_dotenv()
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Ajouter le répertoire parent au PYTHONPATH
 #sys.path.append(os.getenv('PYTHONPATH'))
@@ -225,7 +226,7 @@ if __name__ == "__main__":
         print("Data prepared.")
 
         feature_methods = ['hog', 'flatten'] # 'sift'
-        classifiers = ['logistic', 'random_forest', 'svm'] # 'naive_bayes', 'sgd', 'logistic', 'linear_svm', 'random_forest', 'svm', 'knn'
+        classifiers = ['naive_bayes', 'sgd', 'logistic', 'linear_svm', 'random_forest', 'svm', 'knn'] 
         results = []
         
         for feature_method in feature_methods:
@@ -257,8 +258,8 @@ if __name__ == "__main__":
 
         # Save results to a DataFrame and then to an Excel file
         results_df = pd.DataFrame(results)
-        results_df.to_excel('model_results_best.xlsx', index=False)
-        print("Results saved to 'model_results_best.xlsx'")
+        results_df.to_excel('results_logitic_regression.xlsx', index=False)
+        print("Results saved to 'results_logitic_regression.xlsx'")
     except Exception as e:
         print(f"An error occurred: {e}")
 

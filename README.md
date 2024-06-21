@@ -127,19 +127,13 @@ make train_model
 ```
 
 6. **Évaluer le modèle** :
+ICi pour le moment le modèle le plus performant, SVM avec des features extraites de HOG, est chargé et les résultats sont affichés.
 
 ```bash
 make evaluate_model
 ```
 
-7. **Effectuer un grid search**
-C'est très long a faire tourner le temps d'exécution est affiché a chaque fois.
-
-```bash
-make grid_search
-```
-
-8. **Nettoyer les fichiers générés** :
+7. **Nettoyer les fichiers générés** :
 
 ```bash
 make clean
