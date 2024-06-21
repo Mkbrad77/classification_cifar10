@@ -123,6 +123,8 @@ def main():
     X_val_hog = extract_hog_features(X_val)
     X_test_hog = extract_hog_features(X_test)
     save_processed_data(X_train_hog, X_val_hog, X_test_hog, 'hog')
+    print("HOG features saved")
+    print("Training model logistic regression with HOG features...")
     model, val_predictions = train_classifier(X_train_hog, y_train, X_val_hog, y_val, model_type=MODEL_TYPES[0])
     print(classification_report(y_val, val_predictions))
 
