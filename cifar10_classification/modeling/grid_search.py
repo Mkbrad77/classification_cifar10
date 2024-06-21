@@ -225,8 +225,8 @@ if __name__ == "__main__":
         X_train, y_train, X_val, y_val, X_test, y_test = prepare_data()
         print("Data prepared.")
 
-        feature_methods = ['hog', 'flatten'] # 'sift'
-        classifiers = ['naive_bayes', 'sgd', 'logistic', 'linear_svm', 'random_forest', 'svm', 'knn'] 
+        feature_methods = ['hog']#, 'flatten'] # 'sift'
+        classifiers = ['naive_bayes', 'logistic']#'naive_bayes', 'sgd', 'logistic', 'linear_svm', 'random_forest', 'svm', 'knn'] 
         results = []
         
         for feature_method in feature_methods:
