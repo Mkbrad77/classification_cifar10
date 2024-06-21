@@ -75,4 +75,6 @@ def prepare_data():
 
 if __name__ == "__main__":
     X_train, y_train, X_val, y_val, X_test, y_test = prepare_data()
+    print("Les données ont bien été loadées sauvegardées et splittées")
+    print(X_train.shape, y_train.shape)
     #save_interim_data(X_train, y_train, X_val, y_val, X_test, y_test)
