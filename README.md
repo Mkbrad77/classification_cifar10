@@ -133,11 +133,17 @@ ICi pour le moment le modèle le plus performant, SVM avec des features extraite
 make evaluate_model
 ```
 
-7. **Nettoyer les fichiers générés** :
+7. **Effectuer une recherche en grille (grid search)**
+Ici, certains modèles ont été mis en commentaire. Seule la régression logistique avec les features extraites de HOG (prend 0.89 min) est exécutée et son résultat est fourni.
+
+```bash
+make grid_search
+```
+
+8. **Nettoyer les fichiers générés** :
 
 ```bash
 make clean
-```
 
 
 --------
